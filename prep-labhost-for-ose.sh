@@ -14,8 +14,8 @@ if [ -z ${RHN_PASSWD} ]; then
 fi
 
 grep registry.access.redhat.com /etc/hosts || printf '209.132.182.63\tregistry.access.redhat.com\n' | tee -a /etc/hosts
-iptables --check INPUT -i eth0 -p tcp --dport 22 || iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables --check OUTPUT -o eth0 -p tcp --sport 22 || iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
+iptables --check INPUT -i eth0 -p tcp --dport 22 2>/dev/null || iptables -A INPUT -i eth0 -p tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
+iptables --check OUTPUT -o eth0 -p tcp --sport 22 2>/dev/null || iptables -A OUTPUT -o eth0 -p tcp --sport 22 -m state --state ESTABLISHED -j ACCEPT
 iptables-save > /etc/sysconfig/iptables
 
 LV_SIZE=$(echo $(lvdisplay "/dev/rhel_$(hostname -s)/home" | awk "/Current LE/") | cut -d " " -f3)
