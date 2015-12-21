@@ -50,6 +50,13 @@ yum install -y wget git \
 
 sed -i "/OPTIONS=/c OPTIONS=\"--selinux-enabled --insecure-registry 172.30.0.0/16\"" /etc/sysconfig/docker
 
+grep ".mw.lab.eng.bos.redhat.com" /etc/ssh/ssh_config || printf "
+Host *.mw.lab.eng.bos.redhat.com
+   StrictHostKeyChecking no
+   UserKnownHostsFile /dev/null
+" | tee -a /etc/ssh/ssh_config
+
+
 grep -q "dm.thinpooldev" /etc/sysconfig/docker-storage || docker-storage-setup
 
 test -e /root/.ssh/id_rsa || ssh-keygen -t rsa -N "" -f /root/.ssh/id_rsa
