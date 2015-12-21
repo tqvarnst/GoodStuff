@@ -36,7 +36,7 @@ else
         --enable="rhel-7-server-ose-3.1-rpms"
 fi
 
-yum update -y
+# yum update -y
 
 yum install -y wget git \
     net-tools \
