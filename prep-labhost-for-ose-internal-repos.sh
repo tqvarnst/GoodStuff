@@ -33,7 +33,7 @@ enabled=1
 gpgcheck=0
 skip_if_unavailable=1" > /etc/yum.repos.d/latest-EXTRAS-7-RHEL-7.repo
 
-yum clean all
+yum clean all && yum update -y
 
 yum install -y wget git \
     net-tools \
