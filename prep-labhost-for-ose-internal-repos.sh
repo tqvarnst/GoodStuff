@@ -13,6 +13,7 @@ yum install -y yum-utils
 
 yum-config-manager --disable "*"
 
+yum-config-manager --enable beaker-Server
 
 curl -o /etc/yum.repos.d/RH7-RHAOS-3.1.repo http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/OSE3.1/RH7-RHAOS-3.1.repo
 
@@ -22,6 +23,8 @@ baseurl=http://download.eng.bos.redhat.com/devel/candidates/latest-EXTRAS-7-RHEL
 enabled=1
 gpgcheck=0
 skip_if_unavailable=1" > /etc/yum.repos.d/beaker-Server-extras.repo
+
+yum clean all
 
 yum install -y wget git \
     net-tools \
