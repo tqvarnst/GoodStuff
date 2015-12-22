@@ -11,6 +11,13 @@ fi
 
 curl -o /etc/yum.repos.d/RH7-RHAOS-3.1.repo http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/OSE3.1/RH7-RHAOS-3.1.repo
 
+echo "[beaker-Server]
+name=beaker-Server
+baseurl=http://download.eng.bos.redhat.com/released/RHEL-7-EXTRAS/7.2/Server/x86_64/os
+enabled=1
+gpgcheck=0
+skip_if_unavailable=1" > /etc/yum.repos.d/beaker-Server-EXTRAS.repo
+
 yum install -y wget git \
     net-tools \
     bind-utils \
