@@ -1,39 +1,6 @@
 #!/bin/bash
 
-grep registry.access.redhat.com /etc/hosts || printf '209.132.182.63\tregistry.access.redhat.com\n' | tee -a /etc/hosts
-
-LV_SIZE=$(echo $(lvdisplay "/dev/rhel_$(hostname -s)/home" | awk "/Current LE/") | cut -d " " -f3)
-if [ "$LV_SIZE" -gt "100000" ]; then
-    lvreduce -f -l -40000 "/dev/rhel_$(hostname -s)/home"
-else
-    echo "There is NOT enough space left on logical volume home!!!"
-fi
-
-yum install -y yum-utils
-
-yum-config-manager --disable "*"
-
-#yum-config-manager --enable beaker-Server
-
 curl -o /etc/yum.repos.d/RH7-RHAOS-3.1.repo http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/OSE3.1/RH7-RHAOS-3.1.repo
-
-
-
-echo "[latest-RHEL-7]
-name=latest-RHEL-7
-baseurl=http://download.eng.bos.redhat.com/devel/candidates/latest-RHEL-7/compose/Server/x86_64/os/
-enabled=1
-gpgcheck=0
-skip_if_unavailable=1" > /etc/yum.repos.d/latest-RHEL-7.repo
-
-echo "[latest-EXTRAS-7-RHEL-7]
-name=latest-EXTRAS-7-RHEL-7
-baseurl=http://download.eng.bos.redhat.com/devel/candidates/latest-EXTRAS-7-RHEL-7/compose/Server/x86_64/os
-enabled=1
-gpgcheck=0
-skip_if_unavailable=1" > /etc/yum.repos.d/latest-EXTRAS-7-RHEL-7.repo
-
-yum clean all && yum update -y
 
 yum install -y wget git \
     net-tools \
@@ -44,6 +11,15 @@ yum install -y wget git \
     openssl \
     atomic-openshift-utils \
     docker
+    
+grep registry.access.redhat.com /etc/hosts || printf '209.132.182.63\tregistry.access.redhat.com\n' | tee -a /etc/hosts
+
+LV_SIZE=$(echo $(lvdisplay "/dev/rhel_$(hostname -s)/home" | awk "/Current LE/") | cut -d " " -f3)
+if [ "$LV_SIZE" -gt "100000" ]; then
+    lvreduce -f -l -40000 "/dev/rhel_$(hostname -s)/home"
+else
+    echo "There is NOT enough space left on logical volume home!!!"
+fi
 
 sed -i "/OPTIONS=/c OPTIONS=\"--selinux-enabled --insecure-registry 172.30.0.0/16\"" /etc/sysconfig/docker
 
