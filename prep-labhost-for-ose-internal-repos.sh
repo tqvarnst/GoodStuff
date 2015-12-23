@@ -1,6 +1,6 @@
 #!/bin/bash
 
-curl -o /etc/yum.repos.d/RH7-RHAOS-3.1.repo http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/OSE3.1/RH7-RHAOS-3.1.repo
+#curl -o /etc/yum.repos.d/RH7-RHAOS-3.1.repo http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/OSE3.1/RH7-RHAOS-3.1.repo
 
 yum install -y wget git \
     net-tools \
