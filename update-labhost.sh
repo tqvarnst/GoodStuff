@@ -3,18 +3,28 @@ yum install -y yum-utils
 yum-config-manager --disable "*"
 
 
-echo "[latest-RHEL-7]
-name=latest-RHEL-7
-baseurl=http://download.eng.bos.redhat.com/devel/candidates/latest-RHEL-7/compose/Server/x86_64/os/
+cat <<EOF > /etc/yum.repos.d/openshift.repo
+[rhel-7-server-rpms]
+name=Red Hat Enterprise Linux 7 Server (RPMs)
+baseurl=http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/repos/rhel/server/7/$releasever/$basearch/os
 enabled=1
 gpgcheck=0
-skip_if_unavailable=1" > /etc/yum.repos.d/latest-RHEL-7.repo
+skip_if_unavailable=1
 
-echo "[latest-EXTRAS-7-RHEL-7]
-name=latest-EXTRAS-7-RHEL-7
-baseurl=http://download.eng.bos.redhat.com/devel/candidates/latest-EXTRAS-7-RHEL-7/compose/Server/x86_64/os
+[rhel-7-server-extras-rpms]
+name=Red Hat Enterprise Linux 7 Server - Extras (RPMs)
+baseurl=baseurl=http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/repos/rhel/server/7/7Server/$basearch/extras/os
 enabled=1
 gpgcheck=0
-skip_if_unavailable=1" > /etc/yum.repos.d/latest-EXTRAS-7-RHEL-7.repo
+skip_if_unavailable=1
+
+[rhel-7-server-ose-3.1-rpms]
+name=Red Hat OpenShift Enterprise 3.1 (RPMs)
+baseurl=baseurl=http://hpc-dl320a-01.mw.lab.eng.bos.redhat.com/repos/rhel/server/7/7Server/$basearch/ose/3.1/os
+enabled=1
+gpgcheck=0
+skip_if_unavailable=1
+
+EOF
 
 yum clean all && yum update -y
