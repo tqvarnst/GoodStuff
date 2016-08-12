@@ -72,29 +72,32 @@ I/O size (minimum/optimal): 512 bytes / 512 bytes
 1. Change system type for the new partition
 +
 From the previous command we found out that the current disk is `/dev/vda` and that the new partition create by `virt-resize` is `/dev/vda3`. 
-However the type of the new disk is `Linux`. To change the type we issue the following commands
+However the type of the new disk is `Linux`. To change the type we issue the following commands:
 +
-    # fdisk /dev/vda
-    Welcome to fdisk (util-linux 2.23.2).
+[source,bash]
+----
+# fdisk /dev/vda
+Welcome to fdisk (util-linux 2.23.2).
 
-    Changes will remain in memory only, until you decide to write them.
-    Be careful before using the write command.
-    
-    
-    Command (m for help): t
-    Partition number (1-3, default 3): 3
-    Hex code (type L to list all codes): 8e
-    Changed type of partition 'Linux LVM' to 'Linux LVM'
-    
-    Command (m for help): w
-    The partition table has been altered!
+Changes will remain in memory only, until you decide to write them.
+Be careful before using the write command.
 
-    Calling ioctl() to re-read partition table.
-    
-    WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
-    The kernel still uses the old table. The new table will be used at
-    the next reboot or after you run partprobe(8) or kpartx(8)
-    Syncing disks.
+
+Command (m for help): t
+Partition number (1-3, default 3): 3
+Hex code (type L to list all codes): 8e
+Changed type of partition 'Linux LVM' to 'Linux LVM'
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: Re-reading the partition table failed with error 16: Device or resource busy.
+The kernel still uses the old table. The new table will be used at
+the next reboot or after you run partprobe(8) or kpartx(8)
+Syncing disks.
+----
 
 1. Sync the disk using partprobe
 
