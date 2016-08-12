@@ -1,0 +1,5 @@
+# VNC console from remote machine with no libvirt tools
+
+    $ ssh root@server -L 5905:localhost:5900
+    $ vncviewer :5
+    
