@@ -107,6 +107,7 @@ Syncing disks.
 
     # pvcreate /dev/vda3
       Physical volume "/dev/vda3" successfully created
+    
     # pvdisplay
       --- Physical volume ---
       PV Name               /dev/vda2
