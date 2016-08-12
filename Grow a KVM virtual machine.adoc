@@ -67,10 +67,10 @@ Assumption:
     I/O size (minimum/optimal): 512 bytes / 512 bytes
     
 1. Change system type for the new partition
-
++
 From the previous command we found out that the current disk is `/dev/vda` and that the new partition create by `virt-resize` is `/dev/vda3`. 
 However the type of the new disk is `Linux`. To change the type we issue the following commands
-
++
     # fdisk /dev/vda
     Welcome to fdisk (util-linux 2.23.2).
 
